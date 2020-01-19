@@ -3,25 +3,20 @@ import json
 def roundup(time):
     min = time % 100
     hour = int(time/100)
-    if min >= 45:
-        hour = hour + 1
+    if min > 30:
         min = 0
-    elif min >= 15:
-        min = 30
+        hour += 1
     else:
-        min = 0
+        min = 30
     return min+(hour*100)
 
 def rounddown(time):
     min = time % 100
     hour = int(time/100)
-    if min >= 45:
-        hour = hour + 1
+    if min < 30:
         min = 0
-    elif min >= 15:
-        min = 30
     else:
-        min = 0
+        min = 30
     return min+(hour*100)
 
 try:
