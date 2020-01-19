@@ -1,5 +1,29 @@
 import json
 
+def roundup(time):
+    min = time % 100
+    hour = int(time/100)
+    if min >= 45:
+        hour = hour + 1
+        min = 0
+    elif min >= 15:
+        min = 30
+    else:
+        min = 0
+    return min+(hour*100)
+
+def rounddown(time):
+    min = time % 100
+    hour = int(time/100)
+    if min >= 45:
+        hour = hour + 1
+        min = 0
+    elif min >= 15:
+        min = 30
+    else:
+        min = 0
+    return min+(hour*100)
+
 try:
     f = open("schedules.json", "r")
     storedSchedule = json.load(f) # to convert it into an object, instead of a string
@@ -21,7 +45,11 @@ for i in range(0,5):
 
     while len(userIn) > 0:
         currentString = userIn[0:11]
-        scheduleOfWeek[i].append([int(currentString[0:2]) * 100 + int(currentString[3:5]) , int(currentString[6:8]) * 100 + int(currentString[9:11])])
+        startTime = int(currentString[0:2]) * 100 + int(currentString[3:5])
+        startTime = rounddown(startTime)
+        endTime = int(currentString[6:8]) * 100 + int(currentString[9:11])
+        endTime = roundup(endTime)
+        scheduleOfWeek[i].append([startTime, endTime])
         userIn = userIn[12:len(userIn)]
 
 print(scheduleOfWeek)
